@@ -1,0 +1,59 @@
+@import '../../variables.scss';
+@import '../../mixins.scss';
+
+.root {
+  position: relative;
+  display: flex;
+  align-items: center;
+
+  padding-left: pxToRem(45px);
+  width: fit-content;
+
+  &_icon {
+    position: absolute;
+    left: 0;
+  }
+
+  &_content {
+    color: $dark_gray_color;
+
+    font-weight: 600;
+    font-size: minMaxSize(24px, 2.5vh, 16px);
+    letter-spacing: 0.03em;
+    padding-bottom: pxToRem(4px);
+
+    &:hover {
+      color: $black_color;
+    }
+  }
+
+  &_active &_content {
+    position: relative;
+    color: $black_color;
+
+    &::after {
+      content: '';
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      height: max(pxToRem(2px), 1px);
+
+      border-radius: 3px;
+
+      background-color: $black_color;
+
+      animation: slideLine 500ms forwards;
+    }
+  }
+}
+
+@keyframes slideLine {
+  from {
+    opacity: 0;
+    width: 0%;
+  }
+  to {
+    opacity: 1;
+    width: 100%;
+  }
+}

@@ -1,0 +1,13 @@
+@import './variables.scss';
+@import './mixins.scss';
+
+html {
+  background-color: $background_color;
+  color: $black_color;
+
+  font-family: $base_font;
+  font-weight: normal;
+  letter-spacing: 0.03em;
+
+  overflow: hidden;
+}

@@ -1,0 +1,48 @@
+@import '../../variables.scss';
+@import '../../mixins.scss';
+
+.side_navbar {
+  display: flex;
+  flex-direction: column;
+  gap: max(3vh, pxToRem(10px));
+  overflow-y: auto;
+  overflow-x: hidden;
+
+  padding: min(4vh, pxToRem(40px)) pxToRem(38px);
+  height: 100%;
+  width: max(13vw, pxToRem(300px));
+
+  background-color: $panel_color;
+
+  border-radius: 25px 0px 0px 25px;
+
+  h4 {
+    margin: 0;
+
+    color: $dark_gray_color;
+
+    font-weight: 600;
+    font-size: minMaxSize(24px, 2.5vh, 16px);
+    line-height: pxToRem(24px);
+    letter-spacing: 0.03em;
+    text-transform: uppercase;
+  }
+
+  .profile_link {
+    width: fit-content;
+    align-self: center;
+    margin-bottom: min(1vh, pxToRem(40px));
+
+    img {
+      height: minMaxSize(100px, 12vh, 70px);
+      border-radius: 50%;
+      background-color: $white_color;
+    }
+  }
+
+  .logout_link {
+    align-self: center;
+    margin-top: auto;
+    padding-top: pxToRem(30px);
+  }
+}

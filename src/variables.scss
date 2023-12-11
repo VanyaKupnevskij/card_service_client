@@ -1,0 +1,31 @@
+@import './mixins.scss';
+
+$black_color: #494f5b;
+$dark_gray_color: #646c7c;
+$light_gray_color: #e6eaf1;
+$gray_color: #8d96a7;
+$white_color: #fdfdfd;
+$green_color: #7ddf27;
+$red_color: #ff6e6e;
+$blue_color: #7fa8fa;
+
+$primary_color: #b9d0ff;
+$primary_dark_color: #acc6f9;
+$primary_dark2_color: #8dabe8;
+$secondary_color: #ff6e6e;
+$secondary_dark_color: #f86464;
+$background_color: #dde5f4;
+$panel_color: #f2f5fb;
+$panel_dark_color: #dde0e6;
+
+$box_shadow: 0px 4px 21px rgba($black_color, 0.09);
+
+$border_radius: 10px;
+$border: min(pxToRem(2px), 2px) solid $primary_color;
+
+$base_font: 'Montserrat', sans-serif;
+$second_font: 'Roboto Mono', monospace;
+
+$container_max_width: pxToRem(1800px);
+$gap_block: pxToRem(18px);
+
