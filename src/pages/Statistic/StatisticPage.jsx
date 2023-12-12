@@ -18,7 +18,7 @@ function StatisticPage() {
     })
 
     const formatedData1 = responseData.map((record) => {
-      return { x: new Date(record.date), y: record.production_valumes };
+      return { x: new Date(record.date), y: parseFloat(record.production_valumes) };
     });
     
     console.log(formatedData1);
@@ -81,7 +81,7 @@ function StatisticPage() {
     },
     data: [
       {
-        yValueFormatString: '#,### разів',
+        yValueFormatString: '#,###.#### разів',
         xValueFormatString: 'YY.MMM.DD',
         showInLegend: true,
         legendText: 'Вироблена кількість',
