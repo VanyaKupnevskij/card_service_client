@@ -102,7 +102,7 @@ function RecordsPage() {
         <div className={pageGlobalStyles.content}>
           <h1 className={pageGlobalStyles.title}>Записи</h1>
           <div className={pageGlobalStyles.content_inner}>
-            <button className={styles.button_new_client}
+            <button className={styles.button_new}
               onClick={handleCreate}>
               <NewIcon />
               <span>Створити новий запис</span>

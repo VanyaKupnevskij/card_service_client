@@ -1,7 +1,7 @@
 @import '../../variables.scss';
 @import '../../mixins.scss';
 
-.button_new_client {
+.button_new {
   display: flex;
   align-items: center;
   padding: pxToRem(10px) pxToRem(20px);
@@ -10,7 +10,7 @@
   border: none;
   border-radius: $border_radius;
 
-  background-color: $light_gray_color;
+  background-color: $primary_color;
 
   transition: all 200ms;
 
@@ -70,7 +70,7 @@
     align-items: center;
     justify-content: center;
 
-    background-color: $light_gray_color;
+    background-color: $primary_color;
     font-weight: 500;
 
     border-radius: $border_radius;
@@ -82,23 +82,18 @@
     background-color: transparent;
     outline: none;
     border: 2px solid transparent;
-    border-radius: pxToRem(3px);
+    border-radius: $border_radius;
+    text-align: right;
 
     &:hover {
-      background-color: $light_gray_color;
+      background-color: $panel_color;
     }
 
     &:focus{
-      border: 2px solid $blue_color;
-      border-radius: $border_radius;
+      border: 2px solid $primary_color;
 
       cursor: text;
     }
-  }
-
-  .checkbox {
-    accent-color: $primary_color;
-    border-radius: pxToRem(10px);
   }
 
   .delete_button {

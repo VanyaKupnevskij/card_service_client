@@ -54,7 +54,7 @@ function ModelPage() {
         <div className={pageGlobalStyles.content}>
           <h1 className={pageGlobalStyles.title}>Модель</h1>
           <div className={pageGlobalStyles.content_inner}>
-            <button className={styles.button_new_client}
+            <button className={styles.button_calculate}
               onClick={handleCalculate}>
               <NewIcon />
               <span>Обрахувати</span>

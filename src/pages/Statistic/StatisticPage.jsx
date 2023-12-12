@@ -10,6 +10,7 @@ let CanvasJSChart = CanvasJSReact.CanvasJSChart;
 
 function StatisticPage() {
   const [data1, setData1] = useState([]);
+  const [data2, setData2] = useState([]);
   const { request } = useHttp();
 
   const getData = useCallback(async () => {
@@ -20,9 +21,12 @@ function StatisticPage() {
     const formatedData1 = responseData.map((record) => {
       return { x: new Date(record.date), y: parseFloat(record.production_valumes) };
     });
+    const formatedData2 = responseData.map((record) => {
+      return { x: new Date(record.date), y: parseFloat(record.unit_price) };
+    });
     
-    console.log(formatedData1);
     setData1(formatedData1);
+    setData2(formatedData2);
   }, [request])
 
   useEffect(() => {
@@ -86,8 +90,17 @@ function StatisticPage() {
         showInLegend: true,
         legendText: 'Вироблена кількість',
         type: 'spline',
-        color: '#8dabe8',
+        color: '#ffd3b9',
         dataPoints: data1,
+      },
+      {
+        yValueFormatString: '#,###.#### разів',
+        xValueFormatString: 'YY.MMM.DD',
+        showInLegend: true,
+        legendText: 'Кількість виробів',
+        type: 'spline',
+        color: '#8dabe8',
+        dataPoints: data2,
       }
     ],
   };
