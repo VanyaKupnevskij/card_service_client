@@ -1,11 +1,8 @@
 import styles from './style.module.scss';
 
 import statisticImage from '../images/statistic.svg';
-import clientsImage from '../images/clients.svg';
-import ordersImage from '../images/orders.svg';
-import ordersDetailsImage from '../images/orderDetails.svg';
-import categoriesImage from '../images/categories.svg';
-import productsImage from '../images/products.svg';
+import recordsImage from '../images/records.svg';
+import modelImage from '../images/model.svg';
 import deleteImage from '../images/delete.svg';
 import newImage from '../images/new.svg';
 
@@ -21,33 +18,15 @@ function StatisticIcon({ width, height, style, className = '' }) {
   );
 }
 
-function ClientsIcon({ width, height, style, className = '' }) {
+function RecordsIcon({ width, height, style, className = '' }) {
   return (
-    <Icon style={style} className={className} width={width} height={height} src={clientsImage} />
+    <Icon style={style} className={className} width={width} height={height} src={recordsImage} />
   );
 }
 
-function OrdersIcon({ width, height, style, className = '' }) {
+function ModelIcon({ width, height, style, className = '' }) {
   return (
-    <Icon style={style} className={className} width={width} height={height} src={ordersImage} />
-  );
-}
-
-function OrdersDetailsIcon({ width, height, style, className = '' }) {
-  return (
-    <Icon style={style} className={className} width={width} height={height} src={ordersDetailsImage} />
-  );
-}
-
-function CategoriesIcon({ width, height, style, className = '' }) {
-  return (
-    <Icon style={style} className={className} width={width} height={height} src={categoriesImage} />
-  );
-}
-
-function ProductsIcon({ width, height, style, className = '' }) {
-  return (
-    <Icon style={style} className={className} width={width} height={height} src={productsImage} />
+    <Icon style={style} className={className} width={width} height={height} src={modelImage} />
   );
 }
 
@@ -65,11 +44,8 @@ function NewIcon({ width, height, style, className = '' }) {
 
 export {
   StatisticIcon,
-  ClientsIcon,
-  OrdersIcon,
-  OrdersDetailsIcon,
-  CategoriesIcon,
-  ProductsIcon,
+  RecordsIcon,
+  ModelIcon,
   DeleteIcon,
   NewIcon
 };

@@ -14,17 +14,14 @@ function StatisticPage() {
 
   const getData = useCallback(async () => {
     let responseData = await request({
-      url: 'order/getall'
+      url: 'records/'
     })
 
-    const formatedData1 = responseData.map((order) => {
-      return { x: new Date(order.orderDate), y: order.totalAmount };
+    const formatedData1 = responseData.map((record) => {
+      return { x: new Date(record.date), y: record.production_valumes };
     });
-
-    formatedData1.sort((a,b) => {
-      return new Date(b.x) - new Date(a.x);
-    });
-
+    
+    console.log(formatedData1);
     setData1(formatedData1);
   }, [request])
 
@@ -36,7 +33,7 @@ function StatisticPage() {
     animationEnabled: true,
     backgroundColor: 'transparent',
     title: {
-      text: 'Статистика замовлень',
+      text: 'Графік вироблень',
       fontColor: '#494f5b',
       fontFamily: 'Montserrat',
       fontWeight: 400,
@@ -87,7 +84,7 @@ function StatisticPage() {
         yValueFormatString: '#,### разів',
         xValueFormatString: 'YY.MMM.DD',
         showInLegend: true,
-        legendText: 'Замовлення',
+        legendText: 'Вироблена кількість',
         type: 'spline',
         color: '#8dabe8',
         dataPoints: data1,
