@@ -6,10 +6,14 @@ import { useCallback, useEffect, useState } from 'react';
 import { useHttp } from "../../hooks/http.hook";
 
 import SideNavbar from '../../components/SideNavbar';
-import { NewIcon } from '../../ui/Icon';
+import { CalculateIcon } from '../../ui/Icon';
 
 function ModelPage() {
   const [records, setRecords] = useState([]);
+  const [inputData, setInputData] = useState({
+      date: new Date(Date.now()),
+      inflation: 0
+  });
   const { request } = useHttp();
 
   const getData = useCallback(async () => {
@@ -41,6 +45,10 @@ function ModelPage() {
     getData();
   }, [getData])
 
+  function handleInputDataChange(name, newValue) {
+    setInputData(prev => ({ ...prev, [name]: newValue }));
+  }
+
   async function handleCalculate() {
     await getCalculate();
     await getData();
@@ -54,9 +62,25 @@ function ModelPage() {
         <div className={pageGlobalStyles.content}>
           <h1 className={pageGlobalStyles.title}>Модель</h1>
           <div className={pageGlobalStyles.content_inner}>
+            <div className={styles.form_input}>
+              <input 
+                className={styles.input}
+                type='date'
+                name='date'
+                value={inputData.date}
+                onChange={(e) => handleInputDataChange('date', e.currentTarget.value)}/>
+              <input 
+                className={styles.input}
+                type='number'
+                name='inflation'
+                min={0}
+                max={100}
+                value={inputData.inflation}
+                onChange={(e) => handleInputDataChange('inflation', e.currentTarget.value)}/>
+            </div>
             <button className={styles.button_calculate}
               onClick={handleCalculate}>
-              <NewIcon />
+              <CalculateIcon />
               <span>Обрахувати</span>
             </button>
           </div>

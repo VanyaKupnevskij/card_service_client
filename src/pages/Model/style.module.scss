@@ -1,6 +1,10 @@
 @import '../../variables.scss';
 @import '../../mixins.scss';
 
+.form_input {
+  
+}
+
 .button_calculate {
   display: flex;
   align-items: center;
@@ -15,7 +19,6 @@
   transition: all 200ms;
 
   &>span {
-    display: none;
     margin-left: pxToRem(20px);
 
     font-size: pxToRem(16px);
@@ -24,11 +27,7 @@
   }
 
   &:hover {
-    background-color: $primary_color;
-
-    &>span {
-      display: inline-block;
-    }
+    background-color: $primary_dark_color;
   }
 
   &:active {
