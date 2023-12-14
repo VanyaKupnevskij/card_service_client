@@ -1,13 +1,90 @@
 @import '../../variables.scss';
 @import '../../mixins.scss';
 
+.root {
+  display: flex;
+  gap: pxToRem(20px);
+}
+
 .form_input {
+  display: flex;
+  flex-direction: column;
+  gap: pxToRem(5px);
+  margin: pxToRem(10px) 0;
+  width: minMaxSize(400px, 45%, 200px);
+}
+
+.form_output {
+  display: flex;
+  flex-direction: column;
+  gap: pxToRem(5px);
+  margin: pxToRem(10px) 0;
+  width: minMaxSize(400px, 45%, 200px);
+
+  span {
+    display: inline-block;
+    margin-top: pxToRem(15px);
+    margin-left: pxToRem(12px);
+  }
+}
+
+.field {
+  padding: pxToRem(10px);
+  border-radius: $border_radius;
+
+  transition: all 200ms;
+
+  &:hover {
+    background-color: $panel_color;
+  }
+}
+
+.label {
+  padding-left: pxToRem(12px);
+  font-weight: 600;
+}
+
+.input {
+  width: 100%;
+  margin-top: pxToRem(10px);
+  padding: pxToRem(8px) pxToRem(12px);    
+
+  background-color: transparent;
+  outline: none;
+  border: 2px solid transparent;
+  border-radius: $border_radius;
+
+  transition: all 200ms;
   
+  cursor: pointer;
+
+  &:hover {
+    background-color: $panel_color;
+  }
+
+  &:focus{
+    border: 2px solid $primary_color;
+
+    cursor: text;
+  }
+}
+
+.output {
+  margin-top: pxToRem(10px);
+  padding: pxToRem(8px) pxToRem(12px);  
+
+  background-color: $primary_color;
+  border-radius: $border_radius;
+
+  font-weight: 500;
+
+  cursor: text;
 }
 
 .button_calculate {
   display: flex;
   align-items: center;
+  margin-top: pxToRem(20px);
   padding: pxToRem(10px) pxToRem(20px);
 
   outline: none;

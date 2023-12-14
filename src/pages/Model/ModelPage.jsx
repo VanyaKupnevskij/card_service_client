@@ -2,48 +2,116 @@ import globalStyles from '../../global.module.scss';
 import pageGlobalStyles from '../pageGlobalStyle.module.scss';
 import styles from './style.module.scss';
 
-import { useCallback, useEffect, useState } from 'react';
+import { useState } from 'react';
 import { useHttp } from "../../hooks/http.hook";
 
 import SideNavbar from '../../components/SideNavbar';
 import { CalculateIcon } from '../../ui/Icon';
 
+const inputPatern = [
+  {
+    label: "За який рік спрогнозувати",
+    name: "year",
+    min: new Date(Date.now()).getFullYear() + 1,
+    max: 2199,
+    step: 1
+  },
+  {
+    label: "Яка за останній рік інфляція (%)",
+    name: "inflation",
+    min: 0,
+    max: 100,
+    step: 1
+  },
+  {
+    label: "Ризик нестабільності політичної ситуації за вказаний рік",
+    name: "risk_politic",
+    min: 0,
+    max: 10,
+    step: 1
+  },
+  {
+    label: "Ризик зміни курса валюти та інфляції за вказаний рік",
+    name: "risk_inflation",
+    min: 0,
+    max: 10,
+    step: 1
+  },
+  {
+    label: "Ризик конкуренції за вказаний рік",
+    name: "risk_concuration",
+    min: 0,
+    max: 10,
+    step: 1
+  },
+  {
+    label: "Ризик порушення договорів про поставку за вказаний рік",
+    name: "risk_contract",
+    min: 0,
+    max: 10,
+    step: 1
+  }
+];
+
+const outputPatern = [
+  {
+    label: "Виторг",
+    name: "proceeds"
+  },
+  {
+    label: "Собівартість",
+    name: "cost_price"
+  },
+  {
+    label: "Прибуток",
+    name: "income"
+  },
+  {
+    label: "Оперативний прибуток",
+    name: "operating_income"
+  },
+  {
+    label: "Чистий прибуток",
+    name: "net_income"
+  }
+];
+
 function ModelPage() {
-  const [records, setRecords] = useState([]);
+  const [result, setResult] = useState({
+    lastYear: {
+      proceeds: 0,
+      cost_price: 0,
+      income: 0,
+      operating_income: 0,
+      net_income: 0
+    },
+    selectYear: {
+      proceeds: 0,
+      cost_price: 0,
+      income: 0,
+      operating_income: 0,
+      net_income: 0
+    }
+  });
   const [inputData, setInputData] = useState({
-      date: new Date(Date.now()),
-      inflation: 0
+      year: new Date(Date.now()).getFullYear() + 1,
+      inflation: 0,
+      risk_politic: 0,
+      risk_inflation: 0,
+      risk_concuration: 0,
+      risk_contract: 0
   });
   const { request } = useHttp();
-
-  const getData = useCallback(async () => {
-    let responseData = await request({
-      url: 'records/'
-    })
-
-    responseData = responseData.map(record => {
-      let date = new Date(record.date);
-      date.setHours(date.getHours() + 8);
-      date = date.toISOString().split('T')[0];
-      record.date = date;
-      
-      return record;
-    })
-
-    setRecords(responseData);
-  }, [request])
   
-  const getCalculate = async (newOrder) => {
-    await request({
-      url: 'records/create',
-      data: newOrder,
+  const getCalculate = async () => {
+    let responseData = await request({
+      url: 'records/calculate',
+      data: inputData,
       method: 'post'
-    })
-  }
+    });
 
-  useEffect(() => {
-    getData();
-  }, [getData])
+    setResult(responseData);
+  }
 
   function handleInputDataChange(name, newValue) {
     setInputData(prev => ({ ...prev, [name]: newValue }));
@@ -51,7 +119,6 @@ function ModelPage() {
 
   async function handleCalculate() {
     await getCalculate();
-    await getData();
   }
 
   return (
@@ -62,27 +129,60 @@ function ModelPage() {
         <div className={pageGlobalStyles.content}>
           <h1 className={pageGlobalStyles.title}>Модель</h1>
           <div className={pageGlobalStyles.content_inner}>
-            <div className={styles.form_input}>
-              <input 
-                className={styles.input}
-                type='date'
-                name='date'
-                value={inputData.date}
-                onChange={(e) => handleInputDataChange('date', e.currentTarget.value)}/>
-              <input 
-                className={styles.input}
-                type='number'
-                name='inflation'
-                min={0}
-                max={100}
-                value={inputData.inflation}
-                onChange={(e) => handleInputDataChange('inflation', e.currentTarget.value)}/>
+            <div className={styles.root}>
+              <div className={styles.form_input}>
+                {
+                  inputPatern.map((inputItem, ind) => {
+                    return (
+                      <div key={ind} className={styles.field}>
+                        <label htmlFor={inputItem.name} className={styles.label}>
+                          {inputItem.label}
+                        </label>
+                        <input 
+                          className={styles.input}
+                          type='number'
+                          name={inputItem.name}
+                          min={inputItem.min}
+                          max={inputItem.max}
+                          step={inputItem.step}
+                          value={inputData[inputItem.name]}
+                          onChange={(e) => handleInputDataChange(inputItem.name, e.currentTarget.value)}/>
+                      </div>
+                    )
+                  })
+                }
+                
+                <button className={styles.button_calculate}
+                  onClick={handleCalculate}>
+                  <CalculateIcon />
+                  <span>Обрахувати</span>
+                </button>
+              </div>
+              
+              <div className={styles.form_output}>
+                {
+                  outputPatern.map((outputItem, ind) => {
+                    return (
+                      <div key={ind} className={styles.field}>
+                        <div className={styles.label}>
+                          {outputItem.label}
+                        </div>
+
+                        <span>Мнулий рік</span>
+                        <div className={styles.output}>
+                          {result.lastYear[outputItem.name]}
+                        </div>
+
+                        <span>{inputData.year} рік</span>
+                        <div className={styles.output}>
+                          {result.selectYear[outputItem.name]}
+                        </div>
+                      </div>
+                    )
+                  })
+                }
+              </div>
             </div>
-            <button className={styles.button_calculate}
-              onClick={handleCalculate}>
-              <CalculateIcon />
-              <span>Обрахувати</span>
-            </button>
           </div>
         </div>
       </div>
